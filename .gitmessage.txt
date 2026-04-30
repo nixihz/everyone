@@ -1,0 +1,11 @@
+# <type>(<scope>): <subject>
+#
+# type: feat|fix|docs|style|refactor|perf|test|chore|revert
+# scope: optional, e.g. plugin, skill, docs
+# subject: short description in imperative mood
+#
+# Body: detailed description (optional)
+#
+# Footer: breaking changes, closed issues (optional)
+# BREAKING CHANGE: description
+# Closes #123

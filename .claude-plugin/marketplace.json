@@ -1,0 +1,13 @@
+{
+  "name": "everyone-pm",
+  "owner": {
+    "name": "nixihz"
+  },
+  "plugins": [
+    {
+      "name": "everyone",
+      "source": "./plugins/everyone",
+      "description": "Product manager productivity toolkit for AI Agents — rapid wireframing, prototyping, and workflow automation skills"
+    }
+  ]
+}

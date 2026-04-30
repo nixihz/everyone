@@ -1,0 +1,134 @@
+# Taskfile for Everyone AI Marketplace
+# Install: https://taskfile.dev
+
+version: "3"
+
+tasks:
+  # ===========================================
+  # Sem-Ver config tasks
+  # ===========================================
+
+
+  # Release new version (auto-detect version type based on commit message)
+  # Only run on master/main branch
+  # feat: → minor | fix: → patch | BREAKING CHANGE: → major
+  # Sync update all plugin version numbers
+  release:
+    silent: true
+    desc: Auto release new version based on commit message (master/main only)
+    cmds:
+      - |
+        BRANCH=$(git branch --show-current)
+        if [[ "$BRANCH" != "master" && "$BRANCH" != "main" ]]; then
+          echo "Error: Release must be run on master or main branch"
+          echo "Current branch: $BRANCH"
+          exit 1
+        fi
+
+        # Run standard-version and capture output
+        OUTPUT=$(standard-version 2>&1)
+        echo "$OUTPUT"
+
+        # Extract new version number from output
+        VERSION=$(echo "$OUTPUT" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | tail -1)
+
+        if [[ -z "$VERSION" ]]; then
+          echo "No version bump detected, skipping plugin version update"
+          exit 0
+        fi
+
+        echo "New version: $VERSION"
+
+        # Update package.json version
+        echo "Updating package.json to v$VERSION"
+        node -e "
+          const fs = require('fs');
+          const file = 'package.json';
+          const json = JSON.parse(fs.readFileSync(file, 'utf8'));
+          json.version = '$VERSION';
+          fs.writeFileSync(file, JSON.stringify(json, null, 2) + '\n');
+        "
+
+        # Update all plugin.json version numbers
+        for PLUGIN_JSON in plugins/*/.claude-plugin/plugin.json; do
+          if [[ -f "$PLUGIN_JSON" ]]; then
+            PLUGIN_NAME=$(dirname "$PLUGIN_JSON" | xargs basename)
+            echo "Updating $PLUGIN_NAME to v$VERSION"
+            # Use node to update json version
+            node -e "
+              const fs = require('fs');
+              const file = '$PLUGIN_JSON';
+              const json = JSON.parse(fs.readFileSync(file, 'utf8'));
+              json.version = '$VERSION';
+              fs.writeFileSync(file, JSON.stringify(json, null, 2) + '\n');
+            "
+          fi
+        done
+
+        # Check if there are files to commit
+        if git diff --quiet package.json plugins/*/.claude-plugin/plugin.json; then
+          echo "No version changes to commit"
+        else
+          git add package.json plugins/*/.claude-plugin/plugin.json
+          git commit -m "chore: bump versions to v$VERSION"
+          echo "Versions updated and committed"
+        fi
+
+  # First release
+  release:first:
+    desc: First release version (0.0.0 -> 1.0.0)
+    cmds:
+      - standard-version --first-release
+
+  # View current version
+  version:current:
+    desc: View current version
+    cmds:
+      - standard-version --dry-run
+
+  # ===========================================
+  # Development config
+  # ===========================================
+
+  # Initialize project
+  setup:
+    desc: Initialize project (install deps + configure git)
+    cmds:
+      - task: install-deps
+      - task: git:config-template
+
+  # Configure commit template
+  git:config-template:
+    desc: Configure git commit message template
+    cmds:
+      - git config commit.template .gitmessage.txt
+
+
+  # Install dependencies (global)
+  install-deps:
+    desc: Globally install standard-version
+    cmds:
+      - npm install -g standard-version
+
+  # Local testing
+  test:
+    silent: true
+    desc: Local testing
+    cmds:
+      - task test:uninstall
+      - task test:install
+
+  test:uninstall:
+    silent: true
+    desc: Local testing
+    cmds:
+      - claude plugin uninstall everyone@everyone-pm || true
+      - claude plugin marketplace remove everyone-pm || true
+
+  test:install:
+    silent: true
+    desc: Local testing
+    cmds:
+      - claude plugin marketplace add `pwd`
+      - claude plugin marketplace update everyone-pm
+      - claude plugin install everyone@everyone-pm

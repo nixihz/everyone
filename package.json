@@ -1,0 +1,17 @@
+{
+  "name": "everyone-marketplace",
+  "version": "0.0.1",
+  "description": "AI Agent plugin & skill marketplace for product managers — compatible with Claude Code, Codex, and any agent supporting plugins or skills",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nixihz/everyone.git"
+  },
+  "scripts": {
+    "release": "standard-version",
+    "release:minor": "standard-version --release-as minor",
+    "release:major": "standard-version --release-as major"
+  },
+  "devDependencies": {
+    "standard-version": "^9.5.0"
+  }
+}

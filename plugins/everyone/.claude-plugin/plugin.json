@@ -1,0 +1,17 @@
+{
+  "name": "everyone",
+  "version": "0.0.1",
+  "description": "Product manager productivity toolkit for AI Agents — rapid wireframing, prototyping, and workflow automation skills",
+  "author": {
+    "name": "Brian Xie",
+    "email": "yagoodidea@gmail.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "productivity",
+    "automation"
+  ],
+  "commands": "./commands/",
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json"
+}
