@@ -12,15 +12,16 @@ AI Agent plugin & skill marketplace for product managers. Discover, install, and
 
 For agents that support the plugin marketplace protocol:
 
-**Via shell:**
+**Claude Code:**
 ```sh
-claude plugin marketplace add https://github.com/nixihz/everyone.git
-claude plugin install everyone@everyone-pm
+/plugin marketplace add https://github.com/nixihz/everyone.git
+/plugin install everyone@everyone-pm
 ```
 
-**Via slash command inside Claude Code:**
-```
-/plugin install everyone@everyone-pm
+**Codex:**
+```sh
+plugin marketplace add https://github.com/nixihz/everyone.git
+plugin install everyone@everyone-pm
 ```
 
 ### Option 2: Direct Skills (Any AI Agent)

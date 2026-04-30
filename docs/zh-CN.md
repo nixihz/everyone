@@ -10,15 +10,16 @@
 
 适用于支持插件市场协议的 Agent：
 
-**通过命令行：**
+**Claude Code：**
 ```sh
-claude plugin marketplace add https://github.com/nixihz/everyone.git
-claude plugin install everyone@everyone-pm
+/plugin marketplace add https://github.com/nixihz/everyone.git
+/plugin install everyone@everyone-pm
 ```
 
-**通过 Claude Code 对话中的斜杠命令：**
-```
-/plugin install everyone@everyone-pm
+**Codex：**
+```sh
+plugin marketplace add https://github.com/nixihz/everyone.git
+plugin install everyone@everyone-pm
 ```
 
 ### 方式二：Skill 直装（任意 AI Agent）
