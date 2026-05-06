@@ -29,8 +29,8 @@ plugin install everyone@everyone-pm
 If your agent does not support plugins, you can use skills directly:
 
 ```sh
-# Using mpx (recommended)
-mpx skills add plugins/everyone/skills/prototype-ascii
+# Using npx (recommended)
+npx skills add plugins/everyone/skills/prototype-ascii
 
 # Or copy SKILL.md files to your agent's skills directory
 ```

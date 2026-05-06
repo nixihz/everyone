@@ -27,8 +27,8 @@ plugin install everyone@everyone-pm
 如果你的 Agent 不支持插件系统，可以直接使用 Skills：
 
 ```sh
-# 使用 mpx（推荐）
-mpx skills add plugins/everyone/skills/prototype-ascii
+# 使用 npx（推荐）
+npx skills add plugins/everyone/skills/prototype-ascii
 
 # 或将 SKILL.md 文件复制到 Agent 的 skills 目录
 ```
