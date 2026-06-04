@@ -1,0 +1,32 @@
+{
+  "name": "everyone-pm",
+  "interface": {
+    "displayName": "Everyone PM Marketplace"
+  },
+  "plugins": [
+    {
+      "name": "everyone",
+      "source": {
+        "source": "local",
+        "path": "./plugins/everyone"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "product-design",
+      "source": {
+        "source": "local",
+        "path": "./plugins/product-design"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Design"
+    }
+  ]
+}

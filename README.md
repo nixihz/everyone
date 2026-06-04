@@ -20,8 +20,9 @@ For agents that support the plugin marketplace protocol:
 
 **Codex:**
 ```sh
-plugin marketplace add https://github.com/nixihz/everyone.git
-plugin install everyone@everyone-pm
+codex plugin marketplace add https://github.com/nixihz/everyone.git
+codex plugin add everyone@everyone-pm
+codex plugin add product-design@everyone-pm
 ```
 
 ### Option 2: Direct Skills (Any AI Agent)
@@ -39,24 +40,45 @@ Each skill is a self-contained `SKILL.md` file — no build step required.
 
 ## Test Installation
 
+### Claude Code
+
 ```sh
-# Method 1: Manual
 claude plugin uninstall everyone@everyone-pm
 claude plugin marketplace remove everyone-pm
 
-claude plugin marketplace add `pwd`
+claude plugin marketplace add "$(pwd)"
 claude plugin marketplace update everyone-pm
 claude plugin install everyone@everyone-pm
-
-# Method 2: Using Taskfile (recommended)
-task test
 ```
+
+### Codex
+
+```sh
+codex plugin remove everyone@everyone-pm || true
+codex plugin remove product-design@everyone-pm || true
+codex plugin marketplace remove everyone-pm || true
+
+codex plugin marketplace add .
+codex plugin add everyone@everyone-pm
+codex plugin add product-design@everyone-pm
+```
+
+For the Claude-only smoke test, you can also run `task test`.
 
 ## Registered Plugins
 
-| Plugin | Description |
-| ------ | ----------- |
-| everyone | Product manager productivity toolkit for AI Agents — wireframing, prototyping, and workflow automation |
+### Claude Code Marketplace
+
+| Plugin | Version | Source | Description |
+| ------ | ------- | ------ | ----------- |
+| everyone | 0.0.1 | Everyone PM | Product manager productivity toolkit for AI Agents — wireframing, prototyping, and workflow automation |
+
+### Codex Marketplace
+
+| Plugin | Version | Source | Description |
+| ------ | ------- | ------ | ----------- |
+| everyone | 0.0.1 | Everyone PM | Product manager productivity toolkit for AI Agents — wireframing, prototyping, and workflow automation |
+| product-design | 0.1.42 | Codex official by OpenAI | OpenAI Product Design plugin for Codex — explore, audit, and prototype product ideas |
 
 ### everyone Plugin Details
 
@@ -129,59 +151,38 @@ Example tasks:
 - "Check the wiki for stale or contradictory content"
 - "Update the schema so new pages follow this structure"
 
+### product-design Plugin Details
+
+Product Design is an official Codex plugin by OpenAI. This marketplace currently ships the upstream `0.1.42` version through `.agents/plugins/marketplace.json` and keeps its Codex plugin manifest at `plugins/product-design/.codex-plugin/plugin.json`.
+
+Example Codex tasks:
+- `@Product Design Help me get started`
+- `@Product Design Turn this product idea into three visual directions`
+- `@Product Design Clone this URL into an editable prototype`
+
+## Developing Plugins and Skills
+
+Each plugin should live under `plugins/<plugin-name>/`. Use the manifest that matches the agent ecosystem you want to support:
+
+```text
+my-plugin/
+├── .codex-plugin/
+│   └── plugin.json       # Codex plugin manifest
+├── .claude-plugin/
+│   └── plugin.json       # Claude Code plugin manifest
+├── commands/             # Optional slash commands
+├── agents/               # Optional agent definitions
+├── skills/               # Optional skills with SKILL.md files
+├── hooks/                # Optional agent event hooks
+├── .mcp.json             # Optional MCP servers
+└── .lsp.json             # Optional LSP servers
+```
+
+Codex marketplace entries are declared in `.agents/plugins/marketplace.json`. Claude Code marketplace entries are declared in `.claude-plugin/marketplace.json`.
+
 ## References
 
 - Create plugins https://code.claude.com/docs/en/plugins-reference#skills
 - Publish marketplace https://code.claude.com/docs/en/plugin-marketplaces
 - Install from marketplace https://code.claude.com/docs/en/discover-plugins#add-from-other-git-hosts
 - Skills https://code.claude.com/docs/en/skills
-
-
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│  Strategy Management Center                          [Admin] (JD)      │
-├────────────────────────────────────────────────────────────────────────┤
-│                                                                        │
-│  ┌────────────────────────────────────────────────────────────────────┐│
-│  │  Strategy Query                                                    ││
-│  └────────────────────────────────────────────────────────────────────┘│
-│                                                                        │
-│  Strategy Name                                                         │
-│  ┌─────────────────────────────────┐                                   │
-│  │ Enter strategy name...          │                                   │
-│  └─────────────────────────────────┘                                   │
-│                                                                        │
-│  Status                  Strategy Type            Created At           │
-│  ┌──────────────┐       ┌──────────────┐       ┌──────────────┐        │
-│  │ All Status  ▾│       │ All Types   ▾│       │ Select Date ▾│        │
-│  └──────────────┘       └──────────────┘       └──────────────┘        │
-│                                                                        │
-│        [ Search ]    [ Reset ]                                         │
-│                                                                        │
-├────────────────────────────────────────────────────────────────────────┤
-│                                                                        │
-│  ┌────────────────────────────────────────────────────────────────────┐│
-│  │  Strategy List                              [+ New Strategy]       ││
-│  └────────────────────────────────────────────────────────────────────┘│
-│                                                                        │
-│  ┌────────┬─────────────┬──────────┬──────────┬───────────┬─────────┐  │
-│  │ □      │ Strategy    │ Strategy │ Status   │ Created   │ Actions │  │
-│  │        │ Name        │ Type     │          │ At        │         │  │
-│  ├────────┼─────────────┼──────────┼──────────┼───────────┼─────────┤  │
-│  │ ☑      │ User Profile│ Audience │ (12) [On]│ 2026-03-01│[Edit]   │  │
-│  │        │ Strategy    │ Package  │          │           │[Delete] │  │
-│  ├────────┼─────────────┼──────────┼──────────┼───────────┼─────────┤  │
-│  │        │ Interest    │ Tag      │ (8) [On] │ 2026-02-28│[Edit]   │  │
-│  │        │ Preference  │          │          │           │[Delete] │  │
-│  ├────────┼─────────────┼──────────┼──────────┼───────────┼─────────┤  │
-│  │        │ Behavior    │ Algorithm│ (3) [Pause]│2026-02-25│[Edit]  │  │
-│  │        │ Analysis    │          │          │           │[Delete] │  │
-│  ├────────┼─────────────┼──────────┼──────────┼───────────┼─────────┤  │
-│  │        │ Conversion  │ Model    │ (5) [Draft]│2026-02-20│[Edit]  │  │
-│  │        │ Prediction  │          │          │           │[Delete] │  │
-│  └────────┴─────────────┴──────────┴──────────┴───────────┴─────────┘  │
-│                                                                        │
-│  ◀  1  2  3  ...  10  ▶      Total 86    20 per page                   │
-│                                                                        │
-└────────────────────────────────────────────────────────────────────────┘
-```

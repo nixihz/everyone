@@ -18,8 +18,9 @@
 
 **Codex：**
 ```sh
-plugin marketplace add https://github.com/nixihz/everyone.git
-plugin install everyone@everyone-pm
+codex plugin marketplace add https://github.com/nixihz/everyone.git
+codex plugin add everyone@everyone-pm
+codex plugin add product-design@everyone-pm
 ```
 
 ### 方式二：Skill 直装（任意 AI Agent）
@@ -37,24 +38,45 @@ npx skills add plugins/everyone/skills/prototype-ascii
 
 ## 测试安装
 
+### Claude Code
+
 ```sh
-# 方式一：手动执行
 claude plugin uninstall everyone@everyone-pm
 claude plugin marketplace remove everyone-pm
 
-claude plugin marketplace add `pwd`
+claude plugin marketplace add "$(pwd)"
 claude plugin marketplace update everyone-pm
 claude plugin install everyone@everyone-pm
-
-# 方式二：使用 Taskfile（推荐）
-task test
 ```
+
+### Codex
+
+```sh
+codex plugin remove everyone@everyone-pm || true
+codex plugin remove product-design@everyone-pm || true
+codex plugin marketplace remove everyone-pm || true
+
+codex plugin marketplace add .
+codex plugin add everyone@everyone-pm
+codex plugin add product-design@everyone-pm
+```
+
+Claude Code 的快速冒烟测试也可以直接运行 `task test`。
 
 ## 已注册插件
 
-| 插件 | 描述 |
-| ---- | ---- |
-| everyone | 面向 AI Agent 的产品经理效率工具集 —— 线框图、原型设计、工作流自动化 |
+### Claude Code Marketplace
+
+| 插件 | 版本 | 来源 | 描述 |
+| ---- | ---- | ---- | ---- |
+| everyone | 0.0.1 | Everyone PM | 面向 AI Agent 的产品经理效率工具集 —— 线框图、原型设计、工作流自动化 |
+
+### Codex Marketplace
+
+| 插件 | 版本 | 来源 | 描述 |
+| ---- | ---- | ---- | ---- |
+| everyone | 0.0.1 | Everyone PM | 面向 AI Agent 的产品经理效率工具集 —— 线框图、原型设计、工作流自动化 |
+| product-design | 0.1.42 | OpenAI Codex 官方 | OpenAI Product Design Codex 插件 —— 探索、评审并实现可交互产品原型 |
 
 ### everyone 插件详情
 
@@ -127,6 +149,15 @@ task test
 - "检查 wiki 中是否有过时或矛盾的内容"
 - "更新 schema，让新页面遵循这个结构"
 
+### product-design 插件详情
+
+Product Design 是 OpenAI 出品的 Codex 官方插件。当前 marketplace 集成的是上游 `0.1.42` 版本，通过 Codex marketplace 清单 `.agents/plugins/marketplace.json` 发布，并保留 Codex 插件清单 `plugins/product-design/.codex-plugin/plugin.json`。
+
+示例任务：
+- `@Product Design Help me get started`
+- `@Product Design Turn this product idea into three visual directions`
+- `@Product Design Clone this URL into an editable prototype`
+
 ## 开发新插件与技能
 
 ### 插件结构
@@ -135,8 +166,10 @@ task test
 
 ```
 my-plugin/
+├── .codex-plugin/
+│   └── plugin.json       # Codex 插件清单
 ├── .claude-plugin/
-│   └── plugin.json       # 必需：插件清单
+│   └── plugin.json       # Claude Code 插件清单
 ├── commands/             # 可选：斜杠命令
 ├── agents/               # 可选：Agent 定义
 ├── skills/               # 可选：Skills（独立的 SKILL.md 文件）
@@ -146,6 +179,8 @@ my-plugin/
 ```
 
 Skill 是最通用的格式 —— 任何 AI Agent 都能读取 `SKILL.md` 文件，无论是否支持完整的插件协议。
+
+Codex marketplace 条目维护在 `.agents/plugins/marketplace.json`，Claude Code marketplace 条目维护在 `.claude-plugin/marketplace.json`。
 
 开发完成后，让 AI 优化一版：
 
@@ -159,53 +194,3 @@ Skill 是最通用的格式 —— 任何 AI Agent 都能读取 `SKILL.md` 文�
 - 发布市场 https://code.claude.com/docs/en/plugin-marketplaces
 - 从市场安装插件 https://code.claude.com/docs/en/discover-plugins#add-from-other-git-hosts
 - Skills https://code.claude.com/docs/en/skills
-
-
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│  Strategy Management Center                          [Admin] (JD)      │
-├────────────────────────────────────────────────────────────────────────┤
-│                                                                        │
-│  ┌────────────────────────────────────────────────────────────────────┐│
-│  │  Strategy Query                                                    ││
-│  └────────────────────────────────────────────────────────────────────┘│
-│                                                                        │
-│  Strategy Name                                                         │
-│  ┌─────────────────────────────────┐                                   │
-│  │ Enter strategy name...          │                                   │
-│  └─────────────────────────────────┘                                   │
-│                                                                        │
-│  Status                  Strategy Type            Created At           │
-│  ┌──────────────┐       ┌──────────────┐       ┌──────────────┐        │
-│  │ All Status  ▾│       │ All Types   ▾│       │ Select Date ▾│        │
-│  └──────────────┘       └──────────────┘       └──────────────┘        │
-│                                                                        │
-│        [ Search ]    [ Reset ]                                         │
-│                                                                        │
-├────────────────────────────────────────────────────────────────────────┤
-│                                                                        │
-│  ┌────────────────────────────────────────────────────────────────────┐│
-│  │  Strategy List                              [+ New Strategy]       ││
-│  └────────────────────────────────────────────────────────────────────┘│
-│                                                                        │
-│  ┌────────┬─────────────┬──────────┬──────────┬───────────┬─────────┐  │
-│  │ □      │ Strategy    │ Strategy │ Status   │ Created   │ Actions │  │
-│  │        │ Name        │ Type     │          │ At        │         │  │
-│  ├────────┼─────────────┼──────────┼──────────┼───────────┼─────────┤  │
-│  │ ☑      │ User Profile│ Audience │ (12) [On]│ 2026-03-01│[Edit]   │  │
-│  │        │ Strategy    │ Package  │          │           │[Delete] │  │
-│  ├────────┼─────────────┼──────────┼──────────┼───────────┼─────────┤  │
-│  │        │ Interest    │ Tag      │ (8) [On] │ 2026-02-28│[Edit]   │  │
-│  │        │ Preference  │          │          │           │[Delete] │  │
-│  ├────────┼─────────────┼──────────┼──────────┼───────────┼─────────┤  │
-│  │        │ Behavior    │ Algorithm│ (3) [Pause]│2026-02-25│[Edit]  │  │
-│  │        │ Analysis    │          │          │           │[Delete] │  │
-│  ├────────┼─────────────┼──────────┼──────────┼───────────┼─────────┤  │
-│  │        │ Conversion  │ Model    │ (5) [Draft]│2026-02-20│[Edit]  │  │
-│  │        │ Prediction  │          │          │           │[Delete] │  │
-│  └────────┴─────────────┴──────────┴──────────┴───────────┴─────────┘  │
-│                                                                        │
-│  ◀  1  2  3  ...  10  ▶      Total 86    20 per page                   │
-│                                                                        │
-└────────────────────────────────────────────────────────────────────────┘
-```
