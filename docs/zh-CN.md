@@ -69,13 +69,13 @@ Claude Code 的快速冒烟测试也可以直接运行 `task test`。
 
 | 插件 | 版本 | 来源 | 描述 |
 | ---- | ---- | ---- | ---- |
-| everyone | 0.0.1 | Everyone PM | 面向 AI Agent 的产品经理效率工具集 —— 线框图、原型设计、工作流自动化 |
+| everyone | 0.1.0 | Everyone PM | 面向 AI Agent 的产品经理效率工具集 —— 线框图、原型设计、工作流自动化 |
 
 ### Codex Marketplace
 
 | 插件 | 版本 | 来源 | 描述 |
 | ---- | ---- | ---- | ---- |
-| everyone | 0.0.1 | Everyone PM | 面向 AI Agent 的产品经理效率工具集 —— 线框图、原型设计、工作流自动化 |
+| everyone | 0.1.0 | Everyone PM | 面向 AI Agent 的产品经理效率工具集 —— 线框图、原型设计、工作流自动化 |
 | product-design | 0.1.42 | OpenAI Codex 官方 | OpenAI Product Design Codex 插件 —— 探索、评审并实现可交互产品原型 |
 
 ### everyone 插件详情

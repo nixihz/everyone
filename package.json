@@ -1,6 +1,6 @@
 {
   "name": "everyone-marketplace",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "AI Agent plugin & skill marketplace for product managers — compatible with Claude Code, Codex, and any agent supporting plugins or skills",
   "repository": {
     "type": "git",

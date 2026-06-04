@@ -71,13 +71,13 @@ For the Claude-only smoke test, you can also run `task test`.
 
 | Plugin | Version | Source | Description |
 | ------ | ------- | ------ | ----------- |
-| everyone | 0.0.1 | Everyone PM | Product manager productivity toolkit for AI Agents — wireframing, prototyping, and workflow automation |
+| everyone | 0.1.0 | Everyone PM | Product manager productivity toolkit for AI Agents — wireframing, prototyping, and workflow automation |
 
 ### Codex Marketplace
 
 | Plugin | Version | Source | Description |
 | ------ | ------- | ------ | ----------- |
-| everyone | 0.0.1 | Everyone PM | Product manager productivity toolkit for AI Agents — wireframing, prototyping, and workflow automation |
+| everyone | 0.1.0 | Everyone PM | Product manager productivity toolkit for AI Agents — wireframing, prototyping, and workflow automation |
 | product-design | 0.1.42 | Codex official by OpenAI | OpenAI Product Design plugin for Codex — explore, audit, and prototype product ideas |
 
 ### everyone Plugin Details
