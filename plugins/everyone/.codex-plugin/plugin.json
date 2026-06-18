@@ -1,7 +1,7 @@
 {
   "name": "everyone",
   "version": "0.1.0",
-  "description": "Product manager productivity toolkit for AI Agents — rapid wireframing, prototyping, and workflow automation skills",
+  "description": "Product manager productivity toolkit for AI Agents - rapid wireframing, prototyping, research, and workflow automation skills",
   "author": {
     "name": "Brian Xie",
     "email": "yagoodidea@gmail.com"
@@ -9,7 +9,9 @@
   "license": "MIT",
   "keywords": [
     "productivity",
-    "automation"
+    "automation",
+    "research",
+    "market-research"
   ],
   "commands": "./commands/",
   "skills": "./skills/",
@@ -17,7 +19,7 @@
   "interface": {
     "displayName": "Everyone",
     "shortDescription": "PM productivity toolkit",
-    "longDescription": "Product manager productivity toolkit for AI Agents, including rapid wireframing, PRD drafting, and persistent LLM wiki workflows.",
+    "longDescription": "Product manager productivity toolkit for AI Agents, including rapid wireframing, PRD drafting, social-signal research, and persistent LLM wiki workflows.",
     "developerName": "Brian Xie",
     "category": "Productivity",
     "capabilities": [
@@ -27,7 +29,8 @@
     "defaultPrompt": [
       "Create an ASCII wireframe for this product idea",
       "Draft a PRD for this feature",
-      "Build an LLM wiki from these notes"
+      "Build an LLM wiki from these notes",
+      "Research X/Twitter signals for this product idea"
     ],
     "brandColor": "#2563EB"
   }
