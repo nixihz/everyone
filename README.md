@@ -2,7 +2,7 @@
 
 AI Agent plugin & skill marketplace for product managers. Discover, install, and share PM-focused plugins and skills across Claude Code, Codex, and any AI agent that supports them.
 
-> **Why "everyone"?** Because everyone is a product manager — this marketplace is built for product people.
+> **Why "everyone"?** Because everyone is a product manager - this marketplace is built for product people.
 
 📖 [中文文档](docs/zh-CN.md)
 
@@ -36,7 +36,7 @@ npx skills add plugins/everyone/skills/prototype-ascii
 # Or copy SKILL.md files to your agent's skills directory
 ```
 
-Each skill is a self-contained `SKILL.md` file — no build step required.
+Each skill is a self-contained `SKILL.md` file - no build step required.
 
 ## Test Installation
 
@@ -71,14 +71,14 @@ For the Claude-only smoke test, you can also run `task test`.
 
 | Plugin | Version | Source | Description |
 | ------ | ------- | ------ | ----------- |
-| everyone | 0.1.0 | Everyone PM | Product manager productivity toolkit for AI Agents — wireframing, prototyping, and workflow automation |
+| everyone | 0.1.0 | Everyone PM | Product manager productivity toolkit for AI Agents - wireframing, prototyping, research, and workflow automation |
 
 ### Codex Marketplace
 
 | Plugin | Version | Source | Description |
 | ------ | ------- | ------ | ----------- |
-| everyone | 0.1.0 | Everyone PM | Product manager productivity toolkit for AI Agents — wireframing, prototyping, and workflow automation |
-| product-design | 0.1.42 | Codex official by OpenAI | OpenAI Product Design plugin for Codex — explore, audit, and prototype product ideas |
+| everyone | 0.1.0 | Everyone PM | Product manager productivity toolkit for AI Agents - wireframing, prototyping, research, and workflow automation |
+| product-design | 0.1.42 | Codex official by OpenAI | OpenAI Product Design plugin for Codex - explore, audit, and prototype product ideas |
 
 ### everyone Plugin Details
 
@@ -96,11 +96,12 @@ For the Claude-only smoke test, you can also run `task test`.
 
 **Agent Skills**
 
-| Skill           | Description                                                                          |
-| --------------- | ------------------------------------------------------------------------------------ |
-| prototype-ascii | ASCII wireframe design tool for rapid UI prototyping                                 |
-| prd             | Generate, update, review, and maintain requirement documents (PRD, user stories, scope, acceptance criteria) |
-| llm-wiki        | Incrementally build and maintain a Markdown-based local LLM Wiki for persistent knowledge compilation |
+| Skill                  | Description                                                                          |
+| ---------------------- | ------------------------------------------------------------------------------------ |
+| prototype-ascii        | ASCII wireframe design tool for rapid UI prototyping                                 |
+| prd                    | Generate, update, review, and maintain requirement documents (PRD, user stories, scope, acceptance criteria) |
+| llm-wiki               | Incrementally build and maintain a Markdown-based local LLM Wiki for persistent knowledge compilation |
+| social-signal-research | Build source-backed X/Twitter research packets for PM decisions                      |
 
 ### prototype-ascii Usage
 
@@ -150,6 +151,15 @@ Example tasks:
 - "What do we know about X from the wiki?"
 - "Check the wiki for stale or contradictory content"
 - "Update the schema so new pages follow this structure"
+
+### social-signal-research Usage
+
+Use this skill when a product manager needs X/Twitter conversation evidence for demand, objections, customer language, competitor chatter, or launch messaging.
+
+Example tasks:
+- "Research X/Twitter signals for developer complaints about unreliable webhooks"
+- "Find customer language around AI research assistants for PMs"
+- "Compare competitor complaints before we test this positioning"
 
 ### product-design Plugin Details
 
